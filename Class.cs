@@ -188,7 +188,7 @@ namespace K.night
         public static void PrintMap()
         {
             SetCursorPosition(0, 0);
-            int magnification = 7; 
+            int magnification = 7;
             for (int y = -offsetY; y <= offsetY; y++)
             {
                 for (int row = 0; row < magnification; row++)
@@ -200,7 +200,7 @@ namespace K.night
                         if (mapX >= 0 && mapX < width && mapY >= 0 && mapY < height)
                         {
                             var tileLines = TileSets(map[mapY, mapX]);
-                            
+
                             Write(tileLines[row]);
                         }
                         else

@@ -4,7 +4,6 @@ namespace K.night
 {
     public static class Class
     {
-
         // create a widthxheight map starting
         // only 10x10 is visible at a time
         // the 0,0 coordinate is at the center of the map
@@ -14,11 +13,6 @@ namespace K.night
         // control the map
         // directions to move
         // updates the map accordingly each time the player moves
-        public static int playerX = 0;
-        public static int playerY = 0;
-        public static int width = 1000;
-        public static int height = 1000;
-        public static string[,] map = new string[width, height];
         public static int type;
         public static int width = 200;
         public static int height = 200;
@@ -44,13 +38,10 @@ namespace K.night
             }
             GenerateLandscape();
 
-            for (int iter = 0; iter < 5; iter++)
+            for (int y = 0; y < height; y++)
             {
-                string[,] newmap = new string[height, width];
-                for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
                 {
-                    for (int x = 0; x < width; x++)
-                    {
                     if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
                     {
                         map[y, x] = 99; // make borders walls
@@ -185,16 +176,15 @@ namespace K.night
                     }
                 }
                 map = newMap;
-                }
-                map = newmap;
             }
+        }
 
         public static void ShowPlayer()
         {
             if (playerY >= 0 && playerY < height && playerX >= 0 && playerX < width)
                 map[playerY, playerX] = 2;
         }
-        
+
         public static void PrintMap()
         {
             SetCursorPosition(0, 0);
@@ -202,24 +192,24 @@ namespace K.night
             for (int y = -offsetY; y <= offsetY; y++)
             {
                 for (int row = 0; row < magnification; row++)
-            {
-                    for (int x = -offsetX; x <= offsetX; x++)
                 {
+                    for (int x = -offsetX; x <= offsetX; x++)
+                    {
                         int mapX = playerX + x; // column
                         int mapY = playerY + y; // row
-                    if (mapX >= 0 && mapX < width && mapY >= 0 && mapY < height)
-                    {
+                        if (mapX >= 0 && mapX < width && mapY >= 0 && mapY < height)
+                        {
                             var tileLines = TileSets(map[mapY, mapX]);
 
                             Write(tileLines[row]);
-                    }
-                    else
-                    {
+                        }
+                        else
+                        {
                             Write(new string(' ', magnification));
+                        }
                     }
+                    WriteLine();
                 }
-                WriteLine();
-            }
             }
             WriteLine($"Player Position: X={playerX}, Y={playerY}   ");
         }
@@ -230,7 +220,6 @@ namespace K.night
             int newY = playerY;
             switch (key)
             {
-                //directional buttons to move
                 case ConsoleKey.UpArrow:
                     newY -= 1; // up
                     break;
@@ -258,6 +247,5 @@ namespace K.night
                 ShowPlayer();
             }
         }
-
     }
 }
